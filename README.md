@@ -1,7 +1,7 @@
-# Django ƒtƒŒ[ƒ€ƒ[ƒN‚Å heroku ‚É REST API ‚ğì¬‚·‚éƒeƒXƒg—pƒAƒvƒŠ
+# Django ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯ã§ heroku ã« REST API ã‚’ä½œæˆã™ã‚‹ãƒ†ã‚¹ãƒˆç”¨ã‚¢ãƒ—ãƒª
 
-Django ƒtƒŒ[ƒ€ƒ[ƒN‚ğ—p‚¢‚Ä Heroku ã‚É REST API ‚ğì¬‚·‚é—ûKB
+Django ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯ã‚’ç”¨ã„ã¦ Heroku ä¸Šã« REST API ã‚’ä½œæˆã™ã‚‹ç·´ç¿’ã€‚
 
-Ql‚É‚µ‚½ƒTƒCƒgF
+## å‚è€ƒã«ã—ãŸã‚µã‚¤ãƒˆ
 https://devcenter.heroku.com/ja/articles/getting-started-with-python
 https://qiita.com/kimihiro_n/items/86e0a9e619720e57ecd8
