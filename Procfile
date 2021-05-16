@@ -1,1 +1,1 @@
-web: gunicorn django_rest_framework_test.django_rest_framework_test.wsgi
+web: django_rest_framework_test.wsgi
