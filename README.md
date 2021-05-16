@@ -6,7 +6,7 @@ Django フレームワークを用いて Heroku 上に REST API を作成する�
 
 Heroku の python チュートリアルの内容を元に、別のテスト用 Django アプリケーションを Heroku 上にデプロイ。
 
-## 参考にした Django アプリケーションに追加で準備したファイル
+## 参考にした Django アプリケーション (django_rest_framework_test) に追加で準備したファイル
 
 - requirements.txt （必要なライブラリを記載）
 - Procfile （ gunicorn で Django アプリケーションを起動するために必要）
