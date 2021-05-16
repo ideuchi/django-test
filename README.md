@@ -19,7 +19,7 @@ Heroku の python チュートリアルの内容を元に、別のテスト用 D
 
 ## Notice
 
-- Django アプリケーションは以下を参考に作成いたしました。
--- Copyright (c) 2015 kimihiro_n
--- https://github.com/pistatium/django_rest_framework_test
+Django アプリケーションは以下を参考に作成いたしました。
+- Copyright (c) 2015 kimihiro_n
+- https://github.com/pistatium/django_rest_framework_test
 
