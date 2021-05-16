@@ -1,25 +1,25 @@
-# Django ƒtƒŒ[ƒ€ƒ[ƒN‚Å heroku ‚É REST API ‚ðì¬‚·‚éƒeƒXƒg—pƒAƒvƒŠ
+# Django ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯ã§ heroku ã« REST API ã‚’ä½œæˆã™ã‚‹ãƒ†ã‚¹ãƒˆç”¨ã‚¢ãƒ—ãƒª
 
-Django ƒtƒŒ[ƒ€ƒ[ƒN‚ð—p‚¢‚Ä Heroku ã‚É REST API ‚ðì¬‚·‚é—ûKB
+Django ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯ã‚’ç”¨ã„ã¦ Heroku ä¸Šã« REST API ã‚’ä½œæˆã™ã‚‹ç·´ç¿’ã€‚
 
-## ŽÀŽ{“à—e
+## å®Ÿæ–½å†…å®¹
 
-Heroku ‚Ì python ƒ`ƒ…[ƒgƒŠƒAƒ‹‚Ì“à—e‚ðŒ³‚ÉA•Ê‚ÌƒeƒXƒg—p Django ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ð Heroku ã‚ÉƒfƒvƒƒCB
+Heroku ã® python ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ã®å†…å®¹ã‚’å…ƒã«ã€åˆ¥ã®ãƒ†ã‚¹ãƒˆç”¨ Django ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ Heroku ä¸Šã«ãƒ‡ãƒ—ãƒ­ã‚¤ã€‚
 
-## ŽQl‚É‚µ‚½ Django ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚É’Ç‰Á‚Å€”õ‚µ‚½ƒtƒ@ƒCƒ‹
+## å‚è€ƒã«ã—ãŸ Django ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã«è¿½åŠ ã§æº–å‚™ã—ãŸãƒ•ã‚¡ã‚¤ãƒ«
 
-- requirements.txt i•K—v‚Èƒ‰ƒCƒuƒ‰ƒŠ‚ð‹LÚj
-- Procfile i gunicorn ‚Å Django ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ð‹N“®‚·‚é‚½‚ß‚É•K—vj
-- README.mdi github ã‚Éƒtƒ@ƒCƒ‹‚ð’u‚­‚½‚ßAà–¾‚ð‹LÚj
+- requirements.txt ï¼ˆå¿…è¦ãªãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’è¨˜è¼‰ï¼‰
+- Procfile ï¼ˆ gunicorn ã§ Django ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚’èµ·å‹•ã™ã‚‹ãŸã‚ã«å¿…è¦ï¼‰
+- README.mdï¼ˆ github ä¸Šã«ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ç½®ããŸã‚ã€èª¬æ˜Žã‚’è¨˜è¼‰ï¼‰
 
 
-## ŽQl‚É‚µ‚½ƒTƒCƒg
+## å‚è€ƒã«ã—ãŸã‚µã‚¤ãƒˆ
 - https://devcenter.heroku.com/ja/articles/getting-started-with-python
 - https://qiita.com/kimihiro_n/items/86e0a9e619720e57ecd8
 
-## ŽÓŽ«
+## Notice
 
-- Django ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ì¬Žž‚ÉˆÈ‰º‚Ìƒ\[ƒXƒR[ƒh‚ð—˜—p‚³‚¹‚Ä‚¢‚½‚¾‚«‚Ü‚µ‚½B
+- Django ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã¯ä»¥ä¸‹ã‚’å‚è€ƒã«ä½œæˆã„ãŸã—ã¾ã—ãŸã€‚
 -- Copyright (c) 2015 kimihiro_n
 -- https://github.com/pistatium/django_rest_framework_test
 
