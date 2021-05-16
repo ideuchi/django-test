@@ -1,1 +1,1 @@
-web: python manage.py runserver
+web: gunicorn django_rest_framework_test.django_rest_framework_test.wsgi
