@@ -16,18 +16,17 @@ echo `date` "debug_message_file/setup_test called (debug file)." >> debug.txt
 ## check sshd config file
 # cat /etc/ssh/sshd_config
 
-## confirm apt suorces
-# cat /etc/apt/sources.list
-sed -i -e 's/archive\.ubuntu\.com/ftp\.jaist\.ac\.jp/g' /etc/apt/sources.list
+curl -O https://repo.anaconda.com/miniconda/Miniconda3-py39_4.9.2-Linux-x86_64.sh
+chmod +x Miniconda3-py39_4.9.2-Linux-x86_64.sh
+bash ~/miniconda.sh -b -p ./miniconda
 
-ls -l /var/lib/apt/lists/partial
-ls -l /var/lib/apt/lists
-ls -l /var/lib/apt
+conda create -n test python=3.9
+conda update -n base -c defaults conda
+conda init
 
-apt-get update
-apt-get -y upgrade
+conda activate test
+conda install kmod-cos7-x86_64
 
-apt-get -y install kmod
 lsmod | grep tun
 modprobe tun
 lsmod | grep tun
