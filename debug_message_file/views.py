@@ -33,3 +33,15 @@ def files(request):
         print(message, file=f)
     return HttpResponse('<pre>' + message + '</pre>')
 
+def prepare_debug(request):
+    time = datetime.datetime.now()
+    str_time = time.strftime('%Y/%m/%d %H:%M:%S')
+    message = str_time + '\n'
+    cmd = 'debug_message_file/setup_test'
+    proc= sp.Popen(cmd, shell=True, stdout=sp.PIPE, stderr=sp.PIPE)
+    std_out, std_err = proc.communicate()
+    message += 'debug_message_file/setup_test result: \n  std_out:\n' + std_out.decode('utf-8').rstrip() + '\n  std_err:\n' + std_err.decode('utf-8').rstrip()
+    with open('debug.txt', 'a') as f:
+        print(message, file=f)
+    return HttpResponse('<pre>' + message + '</pre>')
+
