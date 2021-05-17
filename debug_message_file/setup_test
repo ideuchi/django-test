@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo `date` debug_message_file/setup_test called. >> debug.txt
