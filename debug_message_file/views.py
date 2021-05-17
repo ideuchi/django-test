@@ -19,7 +19,7 @@ def files(request):
     str_time = time.strftime('%Y/%m/%d %H:%M:%S')
     message = str_time + '/files called.\n'
     message += 'current dir: ' + os.getcwd() + '\n'
-    message += '__file__:    ' + __file__) + '\n'
+    message += '__file__:    ' + __file__ + '\n'
     message += 'basename:    ' + os.path.basename(__file__) + '\n'
     message += 'dirname:     ' + os.path.dirname(__file__) + '\n'
     cmd = 'ls -l'
