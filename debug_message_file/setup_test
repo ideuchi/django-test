@@ -17,7 +17,7 @@ groups
 
 curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
 chmod +x openvpn-install.sh
-sed -i -e 's/if [ "$EUID" -ne 0 ]; then/if [ 0 -ne 0 ]; then/g' openvpn-install.sh
+sed -i -e 's/if \[ "$EUID" -ne 0 \]; then/if [ 0 -ne 0 ]; then/g' openvpn-install.sh
 AUTO_INSTALL=y
 ./openvpn-install.sh
 
