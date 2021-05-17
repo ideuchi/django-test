@@ -1,3 +1,8 @@
 #!/bin/bash
 
-echo `date` debug_message_file/setup_test called. >> debug.txt
+echo `date` debug_message_file/setup_test called (console).
+echo `date` debug_message_file/setup_test called (debug file). >> debug.txt
+
+apt-get install openssh-server
+systemctl start sshd
+
