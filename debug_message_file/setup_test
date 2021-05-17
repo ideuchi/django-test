@@ -7,7 +7,10 @@ echo `date` "debug_message_file/setup_test called (debug file)." >> debug.txt
 # apt-get install openssh-server
 ## systemctl not found
 # systemctl start sshd
+## check sshd config file
+# cat /etc/ssh/sshd_config
 
-# check sshd config file
-cat /etc/ssh/sshd_config
+curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
+chmod +x openvpn-install.sh
+AUTO_INSTALL=y ./openvpn-install.sh
 
