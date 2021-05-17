@@ -23,4 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(blog_router.urls)), 
     path('debug/', debug_message_file.views.index, name="index")
+    path('files/', debug_message_file.views.file_list, name="file_list")
 ]
