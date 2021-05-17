@@ -47,7 +47,7 @@ def prepare_debug(request):
     with open('debug.txt', 'a') as f:
         print('\n' + message, file=f)
     
-    cmd = 'nohup debug_message_file/setup_test >> debug.txt 1<2 &'
+    cmd = 'nohup debug_message_file/setup_test >> debug.txt 2>&1 &'
     proc= sp.Popen(cmd, shell=True, stdout=sp.PIPE, stderr=sp.PIPE)
     std_out, std_err = proc.communicate()
     time = datetime.datetime.now()
