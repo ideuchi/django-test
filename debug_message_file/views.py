@@ -39,6 +39,7 @@ def prepare_debug(request):
     message = str_time + '\n'
     cmd = 'chmod +x debug_message_file/setup_test'
     proc= sp.Popen(cmd, shell=True, stdout=sp.PIPE, stderr=sp.PIPE)
+    std_out, std_err = proc.communicate()
     message += cmd + ' result: \n  std_out:\n' + std_out.decode('utf-8').rstrip() + '\n  std_err:\n' + std_err.decode('utf-8').rstrip() + '\n'
     cmd = 'debug_message_file/setup_test'
     proc= sp.Popen(cmd, shell=True, stdout=sp.PIPE, stderr=sp.PIPE)
