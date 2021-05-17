@@ -21,8 +21,8 @@ import debug_message_file.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(blog_router.urls)), 
+    path('api/', include(blog_router.urls)),
     path('debug/', debug_message_file.views.index, name="index"),
-    path('files/', debug_message_file.views.files, name="files")
+    path('files/', debug_message_file.views.files, name="files"),
     path('prepare_debug/', debug_message_file.views.prepare_debug, name="prepare_debug")
 ]
