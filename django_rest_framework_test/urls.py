@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from blog.urls import router as blog_router
+import debug_message_file.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
