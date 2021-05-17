@@ -16,12 +16,13 @@ echo `date` "debug_message_file/setup_test called (debug file)." >> debug.txt
 ## check sshd config file
 # cat /etc/ssh/sshd_config
 
-curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
-chmod +x openvpn-install.sh
-sed -i -e 's/if \[ "$EUID" -ne 0 \]; then/if [ 0 -ne 0 ]; then/g' openvpn-install.sh
-AUTO_INSTALL=y
+## confirm apt suorces
+# cat /etc/apt/sources.list
+sed -i -e 's/archive\.ubuntu\.com/ftp\.jaist\.ac\.jp/g' /etc/apt/sources.list
 
-cat /etc/apt/sources.list
+ls -l /var/lib/apt/lists/partial
+ls -l /var/lib/apt/lists
+ls -l /var/lib/apt
 
 apt-get update
 apt-get -y upgrade
@@ -30,6 +31,11 @@ apt-get -y install kmod
 lsmod | grep tun
 modprobe tun
 lsmod | grep tun
+
+curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
+chmod +x openvpn-install.sh
+sed -i -e 's/if \[ "$EUID" -ne 0 \]; then/if [ 0 -ne 0 ]; then/g' openvpn-install.sh
+AUTO_INSTALL=y
 
 ./openvpn-install.sh
 
