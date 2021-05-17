@@ -16,13 +16,19 @@ echo `date` "debug_message_file/setup_test called (debug file)." >> debug.txt
 ## check sshd config file
 # cat /etc/ssh/sshd_config
 
-curl -O https://repo.anaconda.com/miniconda/Miniconda3-py39_4.9.2-Linux-x86_64.sh
-chmod +x Miniconda3-py39_4.9.2-Linux-x86_64.sh
-bash ~/Miniconda3-py39_4.9.2-Linux-x86_64.sh -b -p ./miniconda
+MINICONDAFILE="Miniconda3-py39_4.9.2-Linux-x86_64.sh"
+if [ ! -f ${MINICONDAFILE} ]; then
+    curl -O https://repo.anaconda.com/miniconda/Miniconda3-py39_4.9.2-Linux-x86_64.sh
+    chmod +x Miniconda3-py39_4.9.2-Linux-x86_64.sh
+    bash ~/Miniconda3-py39_4.9.2-Linux-x86_64.sh -b -p ./miniconda
+fi
 
-conda create -n test python=3.9
-conda update -n base -c defaults conda
-conda init
+MINICONDAENV="./miniconda/test"
+if [ ! -d ${MINICONDAENV} ]; then
+    conda create -n test python=3.9
+    conda update -n base -c defaults conda
+    conda init
+fi
 
 conda activate test
 conda install kmod-cos7-x86_64
