@@ -8,10 +8,12 @@ import subprocess as sp
 def index(request):
     time = datetime.datetime.now()
     str_time = time.strftime('%Y/%m/%d %H:%M:%S')
-    debug_message = str_time+'debug called.\n'
+    debug_message = str_time+': debug called.\n'
     if os.path.isfile('debug.txt'):
         with open('debug.txt') as f1:
             debug_message += f1.read()
+    with open('debug.txt', 'a') as f:
+        print(str_time+': debug called.\n', file=f)
     return HttpResponse('<pre>' + debug_message + '</pre>')
 
 def file_list(request):
