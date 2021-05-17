@@ -3,21 +3,27 @@
 echo `date` "debug_message_file/setup_test called (console)."
 echo `date` "debug_message_file/setup_test called (debug file)." >> debug.txt
 
-## alreadty installed
+## check user name
+# whoami
+## check groups
+# groups
+
+### confirm ssh can be used or not
+## ssh already installed
 # apt-get install openssh-server
 ## systemctl not found
 # systemctl start sshd
 ## check sshd config file
 # cat /etc/ssh/sshd_config
 
-# check user name
-whoami
-# check groups
-groups
-
 curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
 chmod +x openvpn-install.sh
 sed -i -e 's/if \[ "$EUID" -ne 0 \]; then/if [ 0 -ne 0 ]; then/g' openvpn-install.sh
 AUTO_INSTALL=y
+
+lsmod | grep tun
+modprobe tun
+lsmod | grep tun
+
 ./openvpn-install.sh
 
