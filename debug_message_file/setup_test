@@ -21,6 +21,7 @@ chmod +x openvpn-install.sh
 sed -i -e 's/if \[ "$EUID" -ne 0 \]; then/if [ 0 -ne 0 ]; then/g' openvpn-install.sh
 AUTO_INSTALL=y
 
+apt-get -y install kmod
 lsmod | grep tun
 modprobe tun
 lsmod | grep tun
