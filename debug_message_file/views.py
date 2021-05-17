@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+import os
 
 # Create your views here.
 def index(request):
     debug_message = 'default'
-    with open('debug.txt') as f1:
-       debug_message = f1.read()
+    if os.path.isfile('debug.txt'):
+        with open('debug.txt') as f1:
+            debug_message = f1.read()
+    debug_message += os.getcwd()
     return HttpResponse('<pre>' + debug_message + '</pre>')
