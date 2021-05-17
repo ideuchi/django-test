@@ -35,15 +35,26 @@ def prepare_debug(request):
     time = datetime.datetime.now()
     str_time = time.strftime('%Y/%m/%d %H:%M:%S')
     message = str_time + '/prepare_debug called.\n'
+    with open('debug.txt', 'a') as f:
+        print('\n' + message, file=f)
+    
     cmd = 'chmod +x debug_message_file/setup_test'
     proc= sp.Popen(cmd, shell=True, stdout=sp.PIPE, stderr=sp.PIPE)
     std_out, std_err = proc.communicate()
-    message += cmd + ' result: \n  ' + cmd + ' std_out:\n' + std_out.decode('utf-8').rstrip() + '\n  ' + cmd + ' std_err:\n' + std_err.decode('utf-8').rstrip() + '\n'
-    cmd = 'debug_message_file/setup_test'
-    proc= sp.Popen(cmd, shell=True, stdout=sp.PIPE, stderr=sp.PIPE)
-    std_out, std_err = proc.communicate()
+    time = datetime.datetime.now()
+    str_time = time.strftime('%Y/%m/%d %H:%M:%S')
     message += cmd + ' result: \n  ' + cmd + ' std_out:\n' + std_out.decode('utf-8').rstrip() + '\n  ' + cmd + ' std_err:\n' + std_err.decode('utf-8').rstrip() + '\n'
     with open('debug.txt', 'a') as f:
         print('\n' + message, file=f)
+    
+    cmd = 'nohup debug_message_file/setup_test >> debug.txt 1<2 &'
+    proc= sp.Popen(cmd, shell=True, stdout=sp.PIPE, stderr=sp.PIPE)
+    std_out, std_err = proc.communicate()
+    time = datetime.datetime.now()
+    str_time = time.strftime('%Y/%m/%d %H:%M:%S')
+    message += cmd + ' result: \n  ' + cmd + ' std_out:\n' + std_out.decode('utf-8').rstrip() + '\n  ' + cmd + ' std_err:\n' + std_err.decode('utf-8').rstrip() + '\n'
+    with open('debug.txt', 'a') as f:
+        print('\n' + message, file=f)
+    
     return HttpResponse('<pre>' + message + '</pre>')
 
