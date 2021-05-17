@@ -16,7 +16,7 @@ def index(request):
         print(str_time+': debug called.\n', file=f)
     return HttpResponse('<pre>' + debug_message + '</pre>')
 
-def file_list(request):
+def files(request):
     time = datetime.datetime.now()
     str_time = time.strftime('%Y/%m/%d %H:%M:%S')
     message = str_time + '\n'
