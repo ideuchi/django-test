@@ -20,12 +20,13 @@ def files(request):
     time = datetime.datetime.now()
     str_time = time.strftime('%Y/%m/%d %H:%M:%S')
     message = str_time + '/files called.\n'
-    message += 'request: ' + str(request) + '\n'
     message += 'current dir: ' + os.getcwd() + '\n'
     message += '__file__:    ' + __file__ + '\n'
     message += 'basename:    ' + os.path.basename(__file__) + '\n'
     message += 'dirname:     ' + os.path.dirname(__file__) + '\n'
     cmd = 'ls -al'
+    if "path" in request.GET:
+        cmd += ' ' + request.GET.get("path")
     proc= sp.Popen(cmd, shell=True, stdout=sp.PIPE, stderr=sp.PIPE)
     std_out, std_err = proc.communicate()
     ls_file_name = std_out.decode('utf-8').rstrip()

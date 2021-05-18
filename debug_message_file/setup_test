@@ -19,7 +19,7 @@ echo `date` "debug_message_file/setup_test called (debug file)." >> debug.txt
 MINICONDAFILE="Miniconda3-py37_4.9.2-Linux-x86_64.sh"
 MINICONDAFILESIZE="90040905"
 MINICONDADIR="./miniconda"
-MINICONDAENV="${MINICONDADIR}/envs/test"
+MINICONDAENV="/app/.conda/envs/test"
 if [ ! -f ${MINICONDAFILE} ]; then
     echo ""
     echo `date` "[01/10]: download miniconda start."
@@ -43,7 +43,6 @@ elif [ -d ${MINICONDADIR} ] && [ ! -d ${MINICONDAENV} ]; then
     # ./miniconda/bin/python check_syspath.py
     export PYTHONPATH="$PYTHONPATH:/app/miniconda/lib/python37.zip:/app/miniconda/lib/python3.7:/app/miniconda/lib/python3.7/lib-dynload:/app/miniconda/lib/python3.7/site-packages"
     ./miniconda/bin/conda create -y -n test
-    ./miniconda/bin/conda update -y -n test -c defaults conda
     echo ""
     echo `date` "[04/10]: conda update/create end."
 elif [ -d ${MINICONDAENV} ] && [ "`grep miniconda ~/.bashrc`" == "" ]; then
