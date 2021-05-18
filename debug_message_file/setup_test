@@ -16,43 +16,76 @@ echo `date` "debug_message_file/setup_test called (debug file)." >> debug.txt
 ## check sshd config file
 # cat /etc/ssh/sshd_config
 
-echo "" >> debug.txt
-echo `date` "setup miniconda start." >> debug.txt
 MINICONDAFILE="Miniconda3-py39_4.9.2-Linux-x86_64.sh"
+MINICONDAENV="./miniconda/envs/test"
 if [ ! -f ${MINICONDAFILE} ]; then
-    curl -O https://repo.anaconda.com/miniconda/Miniconda3-py39_4.9.2-Linux-x86_64.sh
+    echo "" >> debug.txt
+    echo `date` "download miniconda start."
+    echo `date` "download miniconda start." >> debug.txt
+    curl -O https://repo.anaconda.com/miniconda/${MINICONDAFILE}
+    echo "" >> debug.txt
+    echo `date` "download miniconda end."
+    echo `date` "download miniconda end." >> debug.txt
+elif [ `ls -l | grep ${MINICONDAFILE} | cut -d ' ' -f 5` -ne 61451533 ]; then
+    echo "" >> debug.txt
+    echo `date` "downloading miniconda."
+    echo `date` "downloading miniconda." >> debug.txt
+elif [ `ls -l | grep ${MINICONDAFILE} | cut -d ' ' -f 5` -eq 61451533 ]; then
+    echo "" >> debug.txt
+    echo `date` "install miniconda start."
+    echo `date` "install miniconda start." >> debug.txt
     chmod +x Miniconda3-py39_4.9.2-Linux-x86_64.sh
-    bash ~/Miniconda3-py39_4.9.2-Linux-x86_64.sh -b -p ./miniconda
+    bash ./Miniconda3-py39_4.9.2-Linux-x86_64.sh -b -p ./miniconda
+    echo "" >> debug.txt
+    echo `date` "install miniconda end."
+    echo `date` "install miniconda end." >> debug.txt
+elif [ `ls -l | grep miniconda` != "" ] && [ ! -d ${MINICONDAENV} ]; then
+    echo "" >> debug.txt
+    echo `date` "create conda env start."
+    echo `date` "create conda env start." >> debug.txt
+    ./miniconda/bin/conda create -y -n test python=3.9
+    echo "" >> debug.txt
+    echo `date` "create conda env end."
+    echo `date` "create conda env end." >> debug.txt
+elif [ `ls -l | grep miniconda` != "" ] && [ -d ${MINICONDAENV} ]; then
+    echo "" >> debug.txt
+    echo `date` "conda update start."
+    echo `date` "conda update start." >> debug.txt
+    ./miniconda/bin/conda update -y -n base -c defaults conda
+    ./miniconda/bin/conda init
+    source ~/.bashrc
+    echo "" >> debug.txt
+    echo `date` "conda update end."
+    echo `date` "conda update end." >> debug.txt
+elif [ `ls -l | grep miniconda` != "" ] && [ -d ${MINICONDAENV} ] && [ `grep miniconda ~/.bashrc` != "" ]; then
+    echo "" >> debug.txt
+    echo `date` "install kmod module start."
+    echo `date` "install kmod module start." >> debug.txt
+    conda activate test
+    conda install -c conda-forge kmod-cos7-x86_64
+    echo "" >> debug.txt
+    echo `date` "install kmod module end."
+    echo `date` "install kmod module end." >> debug.txt
+elif [ `grep miniconda ~/.bashrc` != "" ] && [ -f ./miniconda/envs/test/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe ]; then
+    echo "" >> debug.txt
+    echo `date` "check tun and try to use start."
+    echo `date` "check tun and try to use start." >> debug.txt
+    ./miniconda/envs/test/x86_64-conda-linux-gnu/sysroot/usr/sbin/lsmod | grep tun >> debug.txt
+    ./miniconda/envs/test/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe tun >> debug.txt
+    ./miniconda/envs/test/x86_64-conda-linux-gnu/sysroot/usr/sbin/lsmod | grep tun >> debug.txt
+    echo "" >> debug.txt
+    echo `date` "check tun and try to use end."
+    echo `date` "check tun and try to use end." >> debug.txt
+    echo "" >> debug.txt
+    echo `date` "setup openvpn start."
+    echo `date` "setup openvpn start." >> debug.txt
+    curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
+    chmod +x openvpn-install.sh
+    sed -i -e 's/if \[ "$EUID" -ne 0 \]; then/if [ 0 -ne 0 ]; then/g' openvpn-install.sh
+    AUTO_INSTALL=y
+    ./openvpn-install.sh
 fi
-echo `date` "setup miniconda end." >> debug.txt
-echo "" >> debug.txt
 
-echo "" >> debug.txt
-echo `date` "create conda env start." >> debug.txt
-MINICONDAENV="./miniconda/test"
-if [ ! -d ${MINICONDAENV} ]; then
-    conda create -n test python=3.9
-    conda update -n base -c defaults conda
-    conda init
-fi
-echo `date` "create conda env end." >> debug.txt
-echo "" >> debug.txt
 
-echo "" >> debug.txt
-echo `date` "install kmod module start." >> debug.txt
-conda activate test
-conda install kmod-cos7-x86_64
-echo `date` "install kmod module end." >> debug.txt
-echo "" >> debug.txt
 
-lsmod | grep tun
-modprobe tun
-lsmod | grep tun
-
-curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
-chmod +x openvpn-install.sh
-sed -i -e 's/if \[ "$EUID" -ne 0 \]; then/if [ 0 -ne 0 ]; then/g' openvpn-install.sh
-AUTO_INSTALL=y
-
-./openvpn-install.sh
 

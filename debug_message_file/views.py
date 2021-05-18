@@ -9,9 +9,11 @@ def index(request):
     time = datetime.datetime.now()
     str_time = time.strftime('%Y/%m/%d %H:%M:%S')
     debug_message = str_time+' debug called.\n'
+    with open('debug.txt', 'a') as f:
+        print('\n/index(debug) stdout:\n' + message, file=f)
     if os.path.isfile('debug.txt'):
-        with open('debug.txt') as f1:
-            debug_message += f1.read()
+        with open('debug.txt', 'r') as f:
+            debug_message += '\n\ndebug.txt contents:\n' + f.read()
     return HttpResponse('<pre>' + debug_message + '</pre>')
 
 def files(request):
@@ -47,7 +49,7 @@ def prepare_debug(request):
     with open('debug.txt', 'a') as f:
         print('\n' + message, file=f)
     
-    cmd = 'nohup debug_message_file/setup_test >> debug.txt 2>&1 &'
+    cmd = 'debug_message_file/setup_test'
     proc= sp.Popen(cmd, shell=True, stdout=sp.PIPE, stderr=sp.PIPE)
     std_out, std_err = proc.communicate()
     time = datetime.datetime.now()
