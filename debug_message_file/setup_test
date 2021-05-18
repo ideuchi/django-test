@@ -25,12 +25,10 @@ if [ ! -f ${MINICONDAFILE} ]; then
     curl -O https://repo.anaconda.com/miniconda/${MINICONDAFILE}
     echo ""
     echo `date` "[01/10]: download miniconda end."
-elif [ "`ls -l | grep ${MINICONDAFILE} | cut -d ' ' -f 5`" != "61451533" ]; then
+elif [ "`ls -l | grep ${MINICONDAFILE} | awk -F ' ' '{ printf $5 }'`" != "61451533" ]; then
     echo ""
     echo `date` "[02/10]: downloading miniconda."
-    echo `date` "${MINICONDAFILE} file size extraction result: " "`ls -l | grep ${MINICONDAFILE} | cut -d ' ' -f 5`"
-    echo `date` "ls -l & grep result: " "`ls -l | grep ${MINICONDAFILE}`"
-elif [ "`ls -l | grep ${MINICONDAFILE} | cut -d ' ' -f 5`" == "61451533" ] && [ ! -d ${MINICONDADIR} ]; then
+elif [ "`ls -l | grep ${MINICONDAFILE} | awk -F ' ' '{ printf $5 }'`" == "61451533" ] && [ ! -d ${MINICONDADIR} ]; then
     echo ""
     echo `date` "[03/10]: install miniconda start."
     chmod +x Miniconda3-py39_4.9.2-Linux-x86_64.sh
