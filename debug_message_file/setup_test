@@ -8,14 +8,6 @@ echo `date` "debug_message_file/setup_test called (debug file)." >> debug.txt
 ## check groups
 # groups
 
-### confirm ssh can be used or not
-## ssh already installed
-# apt-get install openssh-server
-## systemctl not found
-# systemctl start sshd
-## check sshd config file
-# cat /etc/ssh/sshd_config
-
 MINICONDAFILE="Miniconda3-py37_4.9.2-Linux-x86_64.sh"
 MINICONDAFILESIZE="90040905"
 MINICONDADIR="./miniconda"
@@ -65,21 +57,22 @@ elif [ "`grep conda ~/.bashrc`" != "" ] && [ ! -f ${MINICONDAENV}/x86_64-conda-l
 elif [ -f ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe ]; then
     echo ""
     echo `date` "[07/10]: check tun and try to use start."
-    echo `date` "[07/10]: check tun and try to use start. (debug)" >> debug.txt
     export PYTHONPATH="$PYTHONPATH:/app/miniconda/lib/python37.zip:/app/miniconda/lib/python3.7:/app/miniconda/lib/python3.7/lib-dynload:/app/miniconda/lib/python3.7/site-packages"
     source .bashrc
-    ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/lsmod | grep tun >> debug.txt
-    ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe tun >> debug.txt
-    ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/lsmod | grep tun >> debug.txt
+    ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe -n -v tun
+    ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe --first-time tun
+    ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe tun
+    ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/lsmod
     echo ""
     echo `date` "[07/10]: check tun and try to use end."
-    echo `date` "[07/10]: check tun and try to use end. (debug)" >> debug.txt
+elif [ ! -f openvpn-install.sh ]; then
     echo ""
     echo `date` "[08/10]: setup openvpn start."
-    echo `date` "[08/10]: setup openvpn start. (debug)" >> debug.txt
     curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
     chmod +x openvpn-install.sh
     sed -i -e 's/if \[ "$EUID" -ne 0 \]; then/if [ 0 -ne 0 ]; then/g' openvpn-install.sh
     AUTO_INSTALL=y
     ./openvpn-install.sh
+    echo ""
+    echo `date` "[08/10]: setup openvpn end."
 fi
