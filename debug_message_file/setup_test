@@ -56,6 +56,7 @@ elif [ -d ${MINICONDAENV} ] && [ "`grep conda ~/.bashrc`" == "" ]; then
 elif [ "`grep conda ~/.bashrc`" != "" ] && [ ! -f ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe ]; then
     echo ""
     echo `date` "[06/10]: install kmod module start."
+    export PYTHONPATH="$PYTHONPATH:/app/miniconda/lib/python37.zip:/app/miniconda/lib/python3.7:/app/miniconda/lib/python3.7/lib-dynload:/app/miniconda/lib/python3.7/site-packages"
     source .bashrc
     conda activate test
     conda install -c conda-forge kmod-cos7-x86_64
@@ -65,6 +66,8 @@ elif [ -f ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe ]; th
     echo ""
     echo `date` "[07/10]: check tun and try to use start."
     echo `date` "[07/10]: check tun and try to use start. (debug)" >> debug.txt
+    export PYTHONPATH="$PYTHONPATH:/app/miniconda/lib/python37.zip:/app/miniconda/lib/python3.7:/app/miniconda/lib/python3.7/lib-dynload:/app/miniconda/lib/python3.7/site-packages"
+    source .bashrc
     ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/lsmod | grep tun >> debug.txt
     ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe tun >> debug.txt
     ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/lsmod | grep tun >> debug.txt
