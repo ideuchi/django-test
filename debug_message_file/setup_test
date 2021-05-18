@@ -39,8 +39,8 @@ elif [ "`ls -l | grep ${MINICONDAFILE} | awk -F ' ' '{ printf $5 }'`" == "${MINI
 elif [ -d ${MINICONDADIR} ] && [ ! -d ${MINICONDAENV} ]; then
     echo ""
     echo `date` "[04/10]: conda update/create start."
-    cat ./miniconda/bin/conda
-    ls -l ./miniconda/bin/python
+    echo -e "import sys\nprint(sys.path)\n" > check_syspath.py
+    ./miniconda/bin/python check_syspath.py
     ./miniconda/bin/conda update -y -n base -c defaults conda
     ./miniconda/bin/conda create -y -n test
     echo ""
