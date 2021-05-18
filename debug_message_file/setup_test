@@ -45,19 +45,18 @@ elif [ -d ${MINICONDADIR} ] && [ ! -d ${MINICONDAENV} ]; then
     ./miniconda/bin/conda create -y -n test
     echo ""
     echo `date` "[04/10]: conda update/create end."
-elif [ -d ${MINICONDAENV} ] && [ "`grep miniconda ~/.bashrc`" == "" ]; then
+elif [ -d ${MINICONDAENV} ] && [ "`grep conda ~/.bashrc`" == "" ]; then
     echo ""
     echo `date` "[05/10]: conda init start."
     export PYTHONPATH="$PYTHONPATH:/app/miniconda/lib/python37.zip:/app/miniconda/lib/python3.7:/app/miniconda/lib/python3.7/lib-dynload:/app/miniconda/lib/python3.7/site-packages"
     ./miniconda/bin/conda init
-    cp ~/.bashrc .my_bashrc
-    source .my_bashrc
+    source .bashrc
     echo ""
     echo `date` "[05/10]: conda init end."
-elif [ "`grep miniconda ~/.bashrc`" != "" ] && [ ! -f ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe ]; then
+elif [ "`grep conda ~/.bashrc`" != "" ] && [ ! -f ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe ]; then
     echo ""
     echo `date` "[06/10]: install kmod module start."
-    source .my_bashrc
+    source .bashrc
     conda activate test
     conda install -c conda-forge kmod-cos7-x86_64
     echo ""

