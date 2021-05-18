@@ -29,8 +29,6 @@ if [ ! -f ${MINICONDAFILE} ]; then
 elif [ "`ls -l | grep ${MINICONDAFILE} | awk -F ' ' '{ printf $5 }'`" != "${MINICONDAFILESIZE}" ]; then
     echo ""
     echo `date` "[02/10]: downloading miniconda."
-    echo `date` "${MINICONDAFILE} file size extraction result: " "`ls -l | grep ${MINICONDAFILE} | cut -d ' ' -f 5`"
-    echo `date` "ls -l & grep result: " "`ls -l | grep ${MINICONDAFILE}`"
 elif [ "`ls -l | grep ${MINICONDAFILE} | awk -F ' ' '{ printf $5 }'`" == "${MINICONDAFILESIZE}" ] && [ ! -d ${MINICONDADIR} ]; then
     echo ""
     echo `date` "[03/10]: install miniconda start."
