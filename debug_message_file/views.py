@@ -10,7 +10,7 @@ def index(request):
     str_time = time.strftime('%Y/%m/%d %H:%M:%S')
     debug_message = str_time+' debug called.\n'
     with open('debug.txt', 'a') as f:
-        print('\n/index(debug) stdout:\n' + message, file=f)
+        print('\n/index(debug) stdout:\n' + debug_message + ' + debug.txt contents', file=f)
     if os.path.isfile('debug.txt'):
         with open('debug.txt', 'r') as f:
             debug_message += '\n\ndebug.txt contents:\n' + f.read()
