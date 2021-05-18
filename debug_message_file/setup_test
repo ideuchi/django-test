@@ -31,7 +31,7 @@ elif [ "`ls -l | grep ${MINICONDAFILE} | cut -d ' ' -f 5`" != "61451533" ]; then
     echo "" >> debug.txt
     echo `date` "[02/10]: downloading miniconda."
     echo `date` "[02/10]: downloading miniconda." >> debug.txt
-    ecoh `date` "${MINICONDAFILE} file size extraction result: " "`ls -l | grep ${MINICONDAFILE} | cut -d ' ' -f 5`"
+    echo `date` "${MINICONDAFILE} file size extraction result: " "`ls -l | grep ${MINICONDAFILE} | cut -d ' ' -f 5`"
 elif [ "`ls -l | grep ${MINICONDAFILE} | cut -d ' ' -f 5`" == "61451533" ] && [ ! -d ${MINICONDADIR} ]; then
     echo "" >> debug.txt
     echo `date` "[03/10]: install miniconda start."
