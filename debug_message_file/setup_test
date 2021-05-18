@@ -24,6 +24,7 @@ if [ ! -f ${MINICONDAFILE} ]; then
     echo ""
     echo `date` "[01/10]: download miniconda start."
     curl -O https://repo.anaconda.com/miniconda/${MINICONDAFILE}
+    chmod +x ./${MINICONDAFILE}
     echo ""
     echo `date` "[01/10]: download miniconda end."
 elif [ "`ls -l | grep ${MINICONDAFILE} | awk -F ' ' '{ printf $5 }'`" != "${MINICONDAFILESIZE}" ]; then
@@ -32,7 +33,6 @@ elif [ "`ls -l | grep ${MINICONDAFILE} | awk -F ' ' '{ printf $5 }'`" != "${MINI
 elif [ "`ls -l | grep ${MINICONDAFILE} | awk -F ' ' '{ printf $5 }'`" == "${MINICONDAFILESIZE}" ] && [ ! -d ${MINICONDADIR} ]; then
     echo ""
     echo `date` "[03/10]: install miniconda start."
-    chmod +x ./${MINICONDAFILE}
     bash ./${MINICONDAFILE} -b -p ${MINICONDADIR}
     echo ""
     echo `date` "[03/10]: install miniconda end."
