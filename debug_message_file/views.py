@@ -54,7 +54,7 @@ def prepare_debug(request):
     std_out, std_err = proc.communicate()
     time = datetime.datetime.now()
     str_time = time.strftime('%Y/%m/%d %H:%M:%S')
-    message += cmd + ' result: \n  ' + cmd + ' std_out:\n' + std_out.decode('utf-8').rstrip() + '\n  ' + cmd + ' std_err:\n' + std_err.decode('utf-8').rstrip() + '\n'
+    message += cmd + ' result: \n  ' + cmd + ' std_out:\n' + std_out.decode('utf-8').rstrip() + '\n'
     with open('debug.txt', 'a') as f:
         print('\n' + message, file=f)
     

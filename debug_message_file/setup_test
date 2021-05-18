@@ -28,6 +28,8 @@ if [ ! -f ${MINICONDAFILE} ]; then
 elif [ "`ls -l | grep ${MINICONDAFILE} | awk -F ' ' '{ printf $5 }'`" != "61451533" ]; then
     echo ""
     echo `date` "[02/10]: downloading miniconda."
+    echo `date` "${MINICONDAFILE} file size extraction result: " "`ls -l | grep ${MINICONDAFILE} | cut -d ' ' -f 5`"
+    echo `date` "ls -l & grep result: " "`ls -l | grep ${MINICONDAFILE}`"
 elif [ "`ls -l | grep ${MINICONDAFILE} | awk -F ' ' '{ printf $5 }'`" == "61451533" ] && [ ! -d ${MINICONDADIR} ]; then
     echo ""
     echo `date` "[03/10]: install miniconda start."
@@ -37,22 +39,20 @@ elif [ "`ls -l | grep ${MINICONDAFILE} | awk -F ' ' '{ printf $5 }'`" == "614515
     echo `date` "[03/10]: install miniconda end."
 elif [ -d ${MINICONDADIR} ] && [ ! -d ${MINICONDAENV} ]; then
     echo ""
-    echo `date` "[04/10]: create conda env start."
-    echo `date` "[04/10]: create conda env start. (debug)" >> debug.txt
-    ./miniconda/bin/conda create -y -n test python=3.9
+    echo `date` "[04/10]: conda update start."
+    ./miniconda/bin/conda update -y -n base -c defaults conda
     echo ""
-    echo `date` "[04/10]: create conda env end."
-    echo `date` "[04/10]: create conda env end. (debug)" >> debug.txt
+    echo `date` "[04/10]: conda update end."
 elif [ -d ${MINICONDAENV} ] && [ "`grep miniconda ~/.bashrc`" == "" ]; then
     echo ""
-    echo `date` "[05/10]: conda update start."
-    echo `date` "[05/10]: conda update start. (debug)" >> debug.txt
-    ./miniconda/bin/conda update -y -n base -c defaults conda
+    echo `date` "[05/10]: create conda env start."
+    echo `date` "[05/10]: create conda env start. (debug)" >> debug.txt
+    ./miniconda/bin/conda create -y -n test
     ./miniconda/bin/conda init
     source ~/.bashrc
     echo ""
-    echo `date` "[05/10]: conda update end."
-    echo `date` "[05/10]: conda update end. (debug)" >> debug.txt
+    echo `date` "[05/10]: create conda env end."
+    echo `date` "[05/10]: create conda env end. (debug)" >> debug.txt
 elif [ "`grep miniconda ~/.bashrc`" != "" ] && [ ! -f ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe ]; then
     echo ""
     echo `date` "[06/10]: install kmod module start."
@@ -81,3 +81,4 @@ elif [ -f ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe ]; th
     AUTO_INSTALL=y
     ./openvpn-install.sh
 fi
+
