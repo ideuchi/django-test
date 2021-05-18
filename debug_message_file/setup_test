@@ -33,7 +33,7 @@ elif [ "`ls -l | grep ${MINICONDAFILE} | awk -F ' ' '{ printf $5 }'`" != "${MINI
 elif [ "`ls -l | grep ${MINICONDAFILE} | awk -F ' ' '{ printf $5 }'`" == "${MINICONDAFILESIZE}" ] && [ ! -d ${MINICONDADIR} ]; then
     echo ""
     echo `date` "[03/10]: install miniconda start."
-    bash ./${MINICONDAFILE} -b -p ${MINICONDADIR}
+    bash ./${MINICONDAFILE} -b -p ${MINICONDADIR} 2>/dev/null
     echo ""
     echo `date` "[03/10]: install miniconda end."
 elif [ -d ${MINICONDADIR} ] && [ ! -d ${MINICONDAENV} ]; then
@@ -42,20 +42,23 @@ elif [ -d ${MINICONDADIR} ] && [ ! -d ${MINICONDAENV} ]; then
     # echo -e "import sys\nprint(sys.path)\n" > check_syspath.py
     # ./miniconda/bin/python check_syspath.py
     export PYTHONPATH="$PYTHONPATH:/app/miniconda/lib/python37.zip:/app/miniconda/lib/python3.7:/app/miniconda/lib/python3.7/lib-dynload:/app/miniconda/lib/python3.7/site-packages"
-    ./miniconda/bin/conda update -y -n base -c defaults conda
     ./miniconda/bin/conda create -y -n test
+    ./miniconda/bin/conda update -y -n test -c defaults conda
     echo ""
     echo `date` "[04/10]: conda update/create end."
 elif [ -d ${MINICONDAENV} ] && [ "`grep miniconda ~/.bashrc`" == "" ]; then
     echo ""
     echo `date` "[05/10]: conda init start."
+    export PYTHONPATH="$PYTHONPATH:/app/miniconda/lib/python37.zip:/app/miniconda/lib/python3.7:/app/miniconda/lib/python3.7/lib-dynload:/app/miniconda/lib/python3.7/site-packages"
     ./miniconda/bin/conda init
-    source ~/.bashrc
+    cp ~/.bashrc .my_bashrc
+    source .my_bashrc
     echo ""
     echo `date` "[05/10]: conda init end."
 elif [ "`grep miniconda ~/.bashrc`" != "" ] && [ ! -f ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe ]; then
     echo ""
     echo `date` "[06/10]: install kmod module start."
+    source .my_bashrc
     conda activate test
     conda install -c conda-forge kmod-cos7-x86_64
     echo ""
