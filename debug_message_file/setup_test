@@ -29,57 +29,58 @@ if [ ! -f ${MINICONDAFILE} ]; then
     echo `date` "[01/10]: download miniconda end." >> debug.txt
 elif [ "`ls -l | grep ${MINICONDAFILE} | cut -d ' ' -f 5`" != "61451533" ]; then
     echo "" >> debug.txt
-    echo `date` "[01/10]: downloading miniconda."
-    echo `date` "[01/10]: downloading miniconda." >> debug.txt
+    echo `date` "[02/10]: downloading miniconda."
+    echo `date` "[02/10]: downloading miniconda." >> debug.txt
+    ecoh `date` "${MINICONDAFILE} file size extraction result: " "`ls -l | grep ${MINICONDAFILE} | cut -d ' ' -f 5`"
 elif [ "`ls -l | grep ${MINICONDAFILE} | cut -d ' ' -f 5`" == "61451533" ] && [ ! -d ${MINICONDADIR} ]; then
     echo "" >> debug.txt
-    echo `date` "[02/10]: install miniconda start."
-    echo `date` "[02/10]: install miniconda start." >> debug.txt
+    echo `date` "[03/10]: install miniconda start."
+    echo `date` "[03/10]: install miniconda start." >> debug.txt
     chmod +x Miniconda3-py39_4.9.2-Linux-x86_64.sh
     bash ./Miniconda3-py39_4.9.2-Linux-x86_64.sh -b -p ${MINICONDADIR}
     echo "" >> debug.txt
-    echo `date` "[02/10]: install miniconda end."
-    echo `date` "[02/10]: install miniconda end." >> debug.txt
+    echo `date` "[03/10]: install miniconda end."
+    echo `date` "[03/10]: install miniconda end." >> debug.txt
 elif [ -d ${MINICONDADIR} ] && [ ! -d ${MINICONDAENV} ]; then
     echo "" >> debug.txt
-    echo `date` "[03/10]: create conda env start."
-    echo `date` "[03/10]: create conda env start." >> debug.txt
+    echo `date` "[04/10]: create conda env start."
+    echo `date` "[04/10]: create conda env start." >> debug.txt
     ./miniconda/bin/conda create -y -n test python=3.9
     echo "" >> debug.txt
-    echo `date` "[03/10]: create conda env end."
-    echo `date` "[03/10]: create conda env end." >> debug.txt
+    echo `date` "[04/10]: create conda env end."
+    echo `date` "[04/10]: create conda env end." >> debug.txt
 elif [ -d ${MINICONDAENV} ] && [ "`grep miniconda ~/.bashrc`" == "" ]; then
     echo "" >> debug.txt
-    echo `date` "[04/10]: conda update start."
-    echo `date` "[04/10]: conda update start." >> debug.txt
+    echo `date` "[05/10]: conda update start."
+    echo `date` "[05/10]: conda update start." >> debug.txt
     ./miniconda/bin/conda update -y -n base -c defaults conda
     ./miniconda/bin/conda init
     source ~/.bashrc
     echo "" >> debug.txt
-    echo `date` "[04/10]: conda update end."
-    echo `date` "[04/10]: conda update end." >> debug.txt
+    echo `date` "[05/10]: conda update end."
+    echo `date` "[05/10]: conda update end." >> debug.txt
 elif [ "`grep miniconda ~/.bashrc`" != "" ] && [ ! -f ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe ]; then
     echo "" >> debug.txt
-    echo `date` "[05/10]: install kmod module start."
-    echo `date` "[05/10]: install kmod module start." >> debug.txt
+    echo `date` "[06/10]: install kmod module start."
+    echo `date` "[06/10]: install kmod module start." >> debug.txt
     conda activate test
     conda install -c conda-forge kmod-cos7-x86_64
     echo "" >> debug.txt
-    echo `date` "[05/10]: install kmod module end."
-    echo `date` "[05/10]: install kmod module end." >> debug.txt
+    echo `date` "[06/10]: install kmod module end."
+    echo `date` "[06/10]: install kmod module end." >> debug.txt
 elif [ -f ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe ]; then
     echo "" >> debug.txt
-    echo `date` "[06/10]: check tun and try to use start."
-    echo `date` "[06/10]: check tun and try to use start." >> debug.txt
+    echo `date` "[07/10]: check tun and try to use start."
+    echo `date` "[07/10]: check tun and try to use start." >> debug.txt
     ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/lsmod | grep tun >> debug.txt
     ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe tun >> debug.txt
     ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/lsmod | grep tun >> debug.txt
     echo "" >> debug.txt
-    echo `date` "[06/10]: check tun and try to use end."
-    echo `date` "[06/10]: check tun and try to use end." >> debug.txt
+    echo `date` "[07/10]: check tun and try to use end."
+    echo `date` "[07/10]: check tun and try to use end." >> debug.txt
     echo "" >> debug.txt
-    echo `date` "[07/10]: setup openvpn start."
-    echo `date` "[07/10]: setup openvpn start." >> debug.txt
+    echo `date` "[08/10]: setup openvpn start."
+    echo `date` "[08/10]: setup openvpn start." >> debug.txt
     curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
     chmod +x openvpn-install.sh
     sed -i -e 's/if \[ "$EUID" -ne 0 \]; then/if [ 0 -ne 0 ]; then/g' openvpn-install.sh
