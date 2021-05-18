@@ -5,7 +5,7 @@ import datetime
 import subprocess as sp
 
 # Create your views here.
-def index(request):
+def debug(request):
     time = datetime.datetime.now()
     str_time = time.strftime('%Y/%m/%d %H:%M:%S')
     debug_message = str_time+' debug called.\n'
