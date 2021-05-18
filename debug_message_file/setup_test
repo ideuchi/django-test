@@ -39,29 +39,25 @@ elif [ "`ls -l | grep ${MINICONDAFILE} | awk -F ' ' '{ printf $5 }'`" == "614515
     echo `date` "[03/10]: install miniconda end."
 elif [ -d ${MINICONDADIR} ] && [ ! -d ${MINICONDAENV} ]; then
     echo ""
-    echo `date` "[04/10]: conda update start."
+    echo `date` "[04/10]: conda update/create start."
     ./miniconda/bin/conda update -y -n base -c defaults conda
+    ./miniconda/bin/conda create -y -n test
     echo ""
-    echo `date` "[04/10]: conda update end."
+    echo `date` "[04/10]: conda update/create end."
 elif [ -d ${MINICONDAENV} ] && [ "`grep miniconda ~/.bashrc`" == "" ]; then
     echo ""
-    echo `date` "[05/10]: create conda env start."
-    echo `date` "[05/10]: create conda env start. (debug)" >> debug.txt
-    ./miniconda/bin/conda create -y -n test
+    echo `date` "[05/10]: conda init start."
     ./miniconda/bin/conda init
     source ~/.bashrc
     echo ""
-    echo `date` "[05/10]: create conda env end."
-    echo `date` "[05/10]: create conda env end. (debug)" >> debug.txt
+    echo `date` "[05/10]: conda init end."
 elif [ "`grep miniconda ~/.bashrc`" != "" ] && [ ! -f ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe ]; then
     echo ""
     echo `date` "[06/10]: install kmod module start."
-    echo `date` "[06/10]: install kmod module start. (debug)" >> debug.txt
     conda activate test
     conda install -c conda-forge kmod-cos7-x86_64
     echo ""
     echo `date` "[06/10]: install kmod module end."
-    echo `date` "[06/10]: install kmod module end. (debug)" >> debug.txt
 elif [ -f ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe ]; then
     echo ""
     echo `date` "[07/10]: check tun and try to use start."
