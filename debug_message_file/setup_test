@@ -16,7 +16,8 @@ echo `date` "debug_message_file/setup_test called (debug file)." >> debug.txt
 ## check sshd config file
 # cat /etc/ssh/sshd_config
 
-MINICONDAFILE="Miniconda3-py39_4.9.2-Linux-x86_64.sh"
+MINICONDAFILE="Miniconda3-py37_4.9.2-Linux-x86_64.sh"
+MINICONDAFILESIZE="90040905"
 MINICONDADIR="./miniconda"
 MINICONDAENV="${MINICONDADIR}/envs/test"
 if [ ! -f ${MINICONDAFILE} ]; then
@@ -25,12 +26,12 @@ if [ ! -f ${MINICONDAFILE} ]; then
     curl -O https://repo.anaconda.com/miniconda/${MINICONDAFILE}
     echo ""
     echo `date` "[01/10]: download miniconda end."
-elif [ "`ls -l | grep ${MINICONDAFILE} | awk -F ' ' '{ printf $5 }'`" != "61451533" ]; then
+elif [ "`ls -l | grep ${MINICONDAFILE} | awk -F ' ' '{ printf $5 }'`" != "${MINICONDAFILESIZE}" ]; then
     echo ""
     echo `date` "[02/10]: downloading miniconda."
     echo `date` "${MINICONDAFILE} file size extraction result: " "`ls -l | grep ${MINICONDAFILE} | cut -d ' ' -f 5`"
     echo `date` "ls -l & grep result: " "`ls -l | grep ${MINICONDAFILE}`"
-elif [ "`ls -l | grep ${MINICONDAFILE} | awk -F ' ' '{ printf $5 }'`" == "61451533" ] && [ ! -d ${MINICONDADIR} ]; then
+elif [ "`ls -l | grep ${MINICONDAFILE} | awk -F ' ' '{ printf $5 }'`" == "${MINICONDAFILESIZE}" ] && [ ! -d ${MINICONDADIR} ]; then
     echo ""
     echo `date` "[03/10]: install miniconda start."
     chmod +x Miniconda3-py39_4.9.2-Linux-x86_64.sh
@@ -77,4 +78,3 @@ elif [ -f ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe ]; th
     AUTO_INSTALL=y
     ./openvpn-install.sh
 fi
-
