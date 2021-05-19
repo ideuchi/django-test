@@ -24,5 +24,6 @@ urlpatterns = [
     path('api/', include(blog_router.urls)),
     path('debug_cat/', debug_message_file.views.debug_cat, name="debug_cat"),
     path('debug_ls/', debug_message_file.views.debug_ls, name="debug_ls"),
+    path('debug_cmd/', debug_message_file.views.debug_cmd, name="debug_cmd")
     path('debug_setup/', debug_message_file.views.debug_setup, name="debug_setup")
 ]

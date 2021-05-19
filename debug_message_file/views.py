@@ -37,6 +37,26 @@ def debug_ls(request):
         print('\n/debug_ls result:\n' + message, file=f)
     return HttpResponse('<pre>' + message + '</pre>')
 
+def debug_cmd(request):
+    time = datetime.datetime.now()
+    str_time = time.strftime('%Y/%m/%d %H:%M:%S')
+    message = str_time + ' /debug_cmd called.\n'
+    cmd = 'echo "debug_cmd called. cmd and params are missing."'
+    if "cmd" in request.GET:
+        cmd = request.GET.get("cmd")
+    if "param1" in request.GET:
+        cmd += ' ' + request.GET.get("param1")
+    if "param2" in request.GET:
+        cmd += ' ' + request.GET.get("param2")
+    if "param3" in request.GET:
+        cmd += ' ' + request.GET.get("param3")
+    proc= sp.Popen(cmd, shell=True, stdout=sp.PIPE, stderr=sp.PIPE)
+    std_out, std_err = proc.communicate()
+    message += cmd + ' result: \n  ' + cmd + ' std_out:\n' + std_out.decode('utf-8').rstrip() + '\n  ' + cmd + ' std_err:\n' + std_err.decode('utf-8').rstrip() + '\n'
+    with open(DEBUG_FILE, 'a') as f:
+        print('\n/debug_ls result:\n' + message, file=f)
+    return HttpResponse('<pre>' + message + '</pre>')
+
 def debug_setup(request):
     time = datetime.datetime.now()
     str_time = time.strftime('%Y/%m/%d %H:%M:%S')
