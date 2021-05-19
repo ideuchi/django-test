@@ -53,7 +53,7 @@ elif [ "`grep conda ~/.bashrc`" != "" ] && [ ! -f ${MINICONDAENV}/x86_64-conda-l
     conda install -c conda-forge kmod-cos7-x86_64
     echo ""
     echo `date` "[05/06]: install kmod module end."
-elif [ -f ${MINICONDADIR}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe ]; then
+elif [ -f ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe ]; then
     echo ""
     echo `date` "[06/06]: checking loaded kernel modules start."
     export PYTHONPATH="$PYTHONPATH:/app/miniconda/lib/python37.zip:/app/miniconda/lib/python3.7:/app/miniconda/lib/python3.7/lib-dynload:/app/miniconda/lib/python3.7/site-packages"
