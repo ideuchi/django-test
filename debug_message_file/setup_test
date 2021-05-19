@@ -1,7 +1,9 @@
 #!/bin/bash
 
+DEBUG_FILE='debug.txt'
+
 echo `date` "debug_message_file/setup_test called (console)."
-echo `date` "debug_message_file/setup_test called (debug file)." >> debug.txt
+echo `date` "debug_message_file/setup_test called (debug file)." >> ${DEBUG_FILE}
 
 ## check user name
 # whoami
@@ -14,65 +16,49 @@ MINICONDADIR="./miniconda"
 MINICONDAENV="/app/.conda/envs/test"
 if [ ! -f ${MINICONDAFILE} ]; then
     echo ""
-    echo `date` "[01/10]: download miniconda start."
+    echo `date` "[01/06]: download miniconda start."
     curl -O https://repo.anaconda.com/miniconda/${MINICONDAFILE}
     chmod +x ./${MINICONDAFILE}
     echo ""
-    echo `date` "[01/10]: download miniconda end."
-elif [ "`ls -l | grep ${MINICONDAFILE} | awk -F ' ' '{ printf $5 }'`" != "${MINICONDAFILESIZE}" ]; then
-    echo ""
-    echo `date` "[02/10]: downloading miniconda."
+    echo `date` "[01/06]: download miniconda end."
 elif [ "`ls -l | grep ${MINICONDAFILE} | awk -F ' ' '{ printf $5 }'`" == "${MINICONDAFILESIZE}" ] && [ ! -d ${MINICONDADIR} ]; then
     echo ""
-    echo `date` "[03/10]: install miniconda start."
+    echo `date` "[02/06]: install miniconda start."
     bash ./${MINICONDAFILE} -b -p ${MINICONDADIR} 2>/dev/null
     echo ""
-    echo `date` "[03/10]: install miniconda end."
+    echo `date` "[02/06]: install miniconda end."
 elif [ -d ${MINICONDADIR} ] && [ ! -d ${MINICONDAENV} ]; then
     echo ""
-    echo `date` "[04/10]: conda update/create start."
+    echo `date` "[03/06]: conda update/create start."
     # echo -e "import sys\nprint(sys.path)\n" > check_syspath.py
     # ./miniconda/bin/python check_syspath.py
     export PYTHONPATH="$PYTHONPATH:/app/miniconda/lib/python37.zip:/app/miniconda/lib/python3.7:/app/miniconda/lib/python3.7/lib-dynload:/app/miniconda/lib/python3.7/site-packages"
     ./miniconda/bin/conda create -y -n test
     echo ""
-    echo `date` "[04/10]: conda update/create end."
+    echo `date` "[03/06]: conda update/create end."
 elif [ -d ${MINICONDAENV} ] && [ "`grep conda ~/.bashrc`" == "" ]; then
     echo ""
-    echo `date` "[05/10]: conda init start."
+    echo `date` "[04/06]: conda init start."
     export PYTHONPATH="$PYTHONPATH:/app/miniconda/lib/python37.zip:/app/miniconda/lib/python3.7:/app/miniconda/lib/python3.7/lib-dynload:/app/miniconda/lib/python3.7/site-packages"
     ./miniconda/bin/conda init
     source .bashrc
     echo ""
-    echo `date` "[05/10]: conda init end."
+    echo `date` "[04/06]: conda init end."
 elif [ "`grep conda ~/.bashrc`" != "" ] && [ ! -f ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe ]; then
     echo ""
-    echo `date` "[06/10]: install kmod module start."
+    echo `date` "[05/06]: install kmod module start."
     export PYTHONPATH="$PYTHONPATH:/app/miniconda/lib/python37.zip:/app/miniconda/lib/python3.7:/app/miniconda/lib/python3.7/lib-dynload:/app/miniconda/lib/python3.7/site-packages"
     source .bashrc
     conda activate test
     conda install -c conda-forge kmod-cos7-x86_64
     echo ""
-    echo `date` "[06/10]: install kmod module end."
-elif [ -f ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe ]; then
+    echo `date` "[05/06]: install kmod module end."
+elif [ -f ${MINICONDADIR}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe ]; then
     echo ""
-    echo `date` "[07/10]: check tun and try to use start."
+    echo `date` "[06/06]: checking loaded kernel modules start."
     export PYTHONPATH="$PYTHONPATH:/app/miniconda/lib/python37.zip:/app/miniconda/lib/python3.7:/app/miniconda/lib/python3.7/lib-dynload:/app/miniconda/lib/python3.7/site-packages"
     source .bashrc
-    ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe -n -v tun
-    ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe --first-time tun
-    ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/modprobe tun
     ${MINICONDAENV}/x86_64-conda-linux-gnu/sysroot/usr/sbin/lsmod
     echo ""
-    echo `date` "[07/10]: check tun and try to use end."
-elif [ ! -f openvpn-install.sh ]; then
-    echo ""
-    echo `date` "[08/10]: setup openvpn start."
-    curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
-    chmod +x openvpn-install.sh
-    sed -i -e 's/if \[ "$EUID" -ne 0 \]; then/if [ 0 -ne 0 ]; then/g' openvpn-install.sh
-    AUTO_INSTALL=y
-    ./openvpn-install.sh
-    echo ""
-    echo `date` "[08/10]: setup openvpn end."
+    echo `date` "[06/06]: checking loaded kernel modules end."
 fi
